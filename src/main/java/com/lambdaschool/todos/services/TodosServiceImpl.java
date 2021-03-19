@@ -9,42 +9,19 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 
 @Transactional
-@Service (value = "todosService")
-public class TodosServiceImpl implements TodosService {
+@Service(value = "todosService")
+public class TodosServiceImpl implements TodosService
+{
     @Autowired
-    private TodosRepository todosrepository;
-
-    @Autowired
-    private TodosService todosService;
-
-    @Override
-    public Todos findTodoById(long id)
-    {
-        return todosrepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Todo with id " + id + " Not Found!"));
-    }
+    private TodosRepository todosrepos;
 
     @Override
     public void markComplete(long todoid)
     {
-        if (todosrepository.findById(todoid).isPresent())
-        {
-            Todos todosComplete = findTodoById(todoid);
-            todosComplete.setCompleted(true);
-        } else {
-            throw new EntityNotFoundException("Todo is " + todoid + ("Not found to show completed task."));
-        }
-    }
+        Todos newTodos = todosrepos.findById(todoid)
+                .orElseThrow(() -> new EntityNotFoundException("Todo " + todoid + " not found!"));
 
-    @Transactional
-    @Override
-    public Todos save(Todos todos)
-    {
-        Todos newTodo = new Todos();
-
-        newTodo.setDescription(todos.getDescription());
-        newTodo.setUser(todos.getUser());
-
-        return todosrepository.save(newTodo);
+        newTodos.setCompleted(true);
     }
 }
 

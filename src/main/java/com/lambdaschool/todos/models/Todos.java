@@ -9,27 +9,28 @@ import javax.persistence.*;
 public class Todos extends Auditable
 {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long todoid;
 
-    @Column (nullable = false)
+    @Column(nullable = false)
     private String description;
 
-    private boolean completed = false;
+    private boolean completed;
 
     @ManyToOne
-    @JoinColumn (name = "userid")
-    @JsonIgnoreProperties (value = "todos", allowSetters = true)
+    @JoinColumn(name = "userid")
+    @JsonIgnoreProperties(value = "todos", allowSetters = true)
     private User user;
 
     public Todos()
     {
     }
 
-    public Todos(String description, User user)
+    public Todos(User user, String description)
     {
-        this.description = description;
         this.user = user;
+        this.description = description;
+        this.completed = false;
     }
 
     public long getTodoid()

@@ -36,12 +36,12 @@ public class UserController
      * @see UserService#findAll() UserService.findAll()
      */
     @GetMapping(value = "/users",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();
         return new ResponseEntity<>(myUsers,
-            HttpStatus.OK);
+                HttpStatus.OK);
     }
 
     /**
@@ -53,14 +53,14 @@ public class UserController
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
     @GetMapping(value = "/user/{userId}",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> getUserById(
-        @PathVariable
-            Long userId)
+            @PathVariable
+                    Long userId)
     {
         User u = userService.findUserById(userId);
         return new ResponseEntity<>(u,
-            HttpStatus.OK);
+                HttpStatus.OK);
     }
 
     /**
@@ -73,11 +73,11 @@ public class UserController
      * @see UserService#save(User) UserService.save(User)
      */
     @PostMapping(value = "/user",
-        consumes = {"application/json"})
+            consumes = {"application/json"})
     public ResponseEntity<?> addNewUser(
-        @Valid
-        @RequestBody
-            User newuser) throws URISyntaxException
+            @Valid
+            @RequestBody
+                    User newuser) throws URISyntaxException
     {
         newuser.setUserid(0);
         newuser = userService.save(newuser);
@@ -85,14 +85,14 @@ public class UserController
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
-            .path("/{userid}")
-            .buildAndExpand(newuser.getUserid())
-            .toUri();
+                .path("/{userid}")
+                .buildAndExpand(newuser.getUserid())
+                .toUri();
         responseHeaders.setLocation(newUserURI);
 
         return new ResponseEntity<>(null,
-            responseHeaders,
-            HttpStatus.CREATED);
+                responseHeaders,
+                HttpStatus.CREATED);
     }
 
     /**
@@ -104,8 +104,8 @@ public class UserController
      */
     @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<?> deleteUserById(
-        @PathVariable
-            long id)
+            @PathVariable
+                    long id)
     {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -117,11 +117,11 @@ public class UserController
      * @return List of usernames, count of non completed tasks
      */
     @GetMapping(value = "/users/todos",
-        produces = {"application/json"})
+            produces = {"application/json"})
     public ResponseEntity<?> getUserNameCountTodos()
     {
         List<UserNameCountTodos> myList = userService.getCountUserTodos();
         return new ResponseEntity<>(myList,
-            HttpStatus.OK);
+                HttpStatus.OK);
     }
 }
