@@ -23,7 +23,7 @@ public interface UserService
      * @param id The primary key (long) of the user you seek.
      * @return The given User or throws an exception if not found.
      */
-    static User findUserById(long id);
+    User findUserById(long id);
 
     /**
      * Deletes the user record, its role and user combinations, and its todos items from the database based off of the provided primary key
