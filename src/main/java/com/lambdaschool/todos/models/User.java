@@ -168,13 +168,11 @@ public class User extends Auditable
         this.password = password;
     }
 
-    public List<Todos> getTodos()
-    {
+    public List<Todos> getTodos() {
         return todos;
     }
 
-    public void setTodos(List<Todos> todos)
-    {
+    public void setTodos(List<Todos> todos) {
         this.todos = todos;
     }
 }

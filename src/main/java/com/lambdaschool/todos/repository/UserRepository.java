@@ -18,6 +18,6 @@ public interface UserRepository extends CrudRepository<User, Long>
      * @return A list of UserNameCountTodos which includes the username and count of non-completed todos
      */
     @Query(value = "SELECT u.username as usernamerpt, count(t.todoid) as counttodos FROM users u JOIN todos t ON u.userid = t.userid WHERE NOT t.completed GROUP BY u.username ORDER BY u.username",
-        nativeQuery = true)
+            nativeQuery = true)
     List<UserNameCountTodos> getCountUserTodos();
 }
